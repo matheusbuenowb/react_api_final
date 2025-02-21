@@ -1,6 +1,8 @@
 import React from "react";
 import {Route, Routes} from 'react-router-dom';
 
+import MyRoute from "./MyRoute";
+
 import Login from '../pages/Login';
 import Page404 from '../pages/Page404';
 

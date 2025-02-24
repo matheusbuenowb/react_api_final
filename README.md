@@ -75,3 +75,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 }
 
 --> ação --> reducer --> newState = state --> newState
+
+Redux faz isso

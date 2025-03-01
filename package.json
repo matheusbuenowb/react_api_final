@@ -55,5 +55,6 @@
     "eslint-plugin-react": "^7.37.4",
     "globals": "^15.14.0",
     "prettier": "^3.4.2"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

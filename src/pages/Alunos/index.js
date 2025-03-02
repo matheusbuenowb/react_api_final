@@ -10,6 +10,8 @@ export default function Alunos(){
       const response = await axios.get('/alunos');
       console.log(response.data);
 
+      //Parei aqui
+
     }
 
     getData();

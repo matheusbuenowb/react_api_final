@@ -5,6 +5,7 @@ import {isEmail} from 'validator';
 import { Container } from '../../styles/GlobalStyles';
 import {Form} from './styled';
 import axios from '../../services/axios';
+import history from '../../services/history';
 
 export default function Register(){
 
@@ -40,11 +41,21 @@ export default function Register(){
         email
       });
 
-      console.log(response.data)
-    }catch(e){
-      //const status = get(e, 'response.status', 0);
-      console.log(e);
+      toast.success('Você fez o seu cadastro com sucesso!');
+      history.push('/')
 
+      console.log(response.data)
+    }catch(err){
+     /* const status = axios.get(e, 'response.status', 0);
+      const errors = axios.get(e, 'response.data.errors', []);
+
+      errors.map(error => toast.error(error));
+*/
+      /*const status = e.response ? e.response.status : 0;
+    const errors = e.response && e.response.data.errors ? e.response.data.errors : [];
+
+    errors.map(error => toast.error(error)); // Exibe cada erro no toast
+*/
 
     }
 

@@ -2,23 +2,19 @@ import * as types from '../types';
 
 const initialState = {
   botaoClicado: false,
+  token: false,
+  user: {},
+  isLoading: false,
 };
 
 export default function reducer (state = initialState, action) {
   switch(action.type){
-    case types.BOTAO_CLICADO_SUCCESS:
-      console.log('Sucesso');
-      const newState = { ...state};
-      newState.botaoClicado = !newState.botaoClicado;
-      return newState;
-    case types.BOTAO_CLICADO_FAILURE:{
-      console.log('Deu erro!')
+
+    case types.LOGIN_REQUEST: {
+      console.log('REDUCER', action.payload);
       return state;
     }
-    case types.BOTAO_CLICADO_REQUEST: {
-      console.log('Estou fazendo a request')
-      return state;
-    }
+
     default:
 
       return state;

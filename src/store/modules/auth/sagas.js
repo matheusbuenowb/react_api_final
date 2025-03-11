@@ -3,23 +3,10 @@ import * as actions from './actions'
 import * as types from '../types';
 import {toast} from 'react-toastify';
 
-const requisicao = () =>
-  new Promise ((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, 600)
-});
 
-function* exampleRequest() {
-  try{
-    yield call(requisicao);
-    yield put(actions.clicaBotaoSuccess());
-  }
-  catch {
-    toast.error('Deu erro');
-    yield put(actions.clicaBotaoFailure());
-  }
+function* loginRequest(payload) {
+  console.log('Saga', payload);
 }
 
 export default all([
-  takeLatest(types.BOTAO_CLICADO_REQUEST, exampleRequest)]);
+  takeLatest(types.LOGIN_REQUEST, loginRequest)]);

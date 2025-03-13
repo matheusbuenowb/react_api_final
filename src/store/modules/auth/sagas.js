@@ -4,6 +4,7 @@ import * as types from '../types';
 import {toast} from 'react-toastify';
 import axios from '../../../services/axios';
 import history from '../../../services/history';
+import {get} from 'loadsh';
 
 
 function* loginRequest(payload) {
@@ -28,5 +29,16 @@ function* loginRequest(payload) {
   }
 }
 
+function persistRehydrate({payload}){
+  const token = get(payload, 'auth.token');
+
+  if(!token) return;
+
+  axios.defaults.headers.Authorization = `Bearer ${token}`;
+
+}
+
 export default all([
-  takeLatest(types.LOGIN_REQUEST, loginRequest)]);
+  takeLatest(types.LOGIN_REQUEST, loginRequest),
+  takeLatest(types.PERSIST_REHYDRATE, persistRehydrate)
+]);

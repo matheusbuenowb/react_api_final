@@ -6,7 +6,11 @@ import { FaUserCircle, FaEdit, FaWindowClose} from 'react-icons/fa';
 import { Container } from '../../styles/GlobalStyles';
 import { AlunoContainer, ProfilePicture } from './styled';
 import axios from '../../services/axios';
+
+import Loading from '../../components/Loading'
+
 import { FaE } from 'react-icons/fa6';
+import { TbGradienter } from 'react-icons/tb';
 
 export default function Alunos(){
 
@@ -26,6 +30,8 @@ export default function Alunos(){
 
   return(
     <Container>
+
+      <Loading isLoading={true}/>
     <h1>Login</h1>
 
 

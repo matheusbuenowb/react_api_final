@@ -15,11 +15,14 @@ import { TbGradienter } from 'react-icons/tb';
 export default function Alunos(){
 
   const [alunos, setAlunos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getData(){
+      setIsLoading(true);
       const response = await axios.get('/alunos');
       setAlunos(response.data);
+      setIsLoading(false);
 
       //Parei aqui
 

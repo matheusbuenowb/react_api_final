@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import {isEmail} from 'validator';
 import { useSelector, useDispatch} from 'react-redux';
 
+
 import { Container } from '../../styles/GlobalStyles';
 import {Form} from './styled';
 import axios from '../../services/axios';
@@ -11,6 +12,7 @@ import history from '../../services/history';
 import * as actions from '../../store/modules/auth/actions'
 
 import Loading from '../../components/Loading'
+import { onFID } from 'web-vitals';
 
 export default function Register(){
 
@@ -19,18 +21,18 @@ export default function Register(){
   const id = useSelector(state => state.auth.user.id);
   const nomeStored = useSelector(state => state.auth.user.nome);
   const emailStored = useSelector(state => state.auth.user.email);
+  const isLoading = useSelector(state => state.auth.isLoading);
 
   const [email, setEmail] = useState('');
   const [nome, setNome] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     if(!id) return;
 
     setNome(nomeStored);
     setEmail(emailStored);
-  }, [])
+  }, [emailStored, id, nomeStored])
 
 
 
@@ -55,9 +57,9 @@ export default function Register(){
 
     if(formErrors) return;
 
-    dispatch(actions);
+    dispatch(actions.registerRequest({nome, email, password, id}));
 
-    setIsLoading(true);
+    //setIsLoading(true);
 
     try {
       const response = await axios.post('/users/', {
@@ -68,7 +70,7 @@ export default function Register(){
 
       toast.success('Você fez o seu cadastro com sucesso!');
 
-      setIsLoading(false);
+      isLoading(false);
       history.push('/login')
 
       console.log(response.data)
@@ -83,9 +85,9 @@ export default function Register(){
 
     errors.map(error => toast.error(error)); // Exibe cada erro no toast
 */
-        setIsLoading(false);
+        isLoading(false);
     } finally {
-        setIsLoading(false);
+        isLoading(false);
     }
 
   }
@@ -93,7 +95,7 @@ export default function Register(){
   return(
     <Container>
 
-       <Loading isLoading={true}/>
+       <Loading isLoading={isLoading}/>
         <h1>{id ? 'Editar dados' : 'Crie sua conta'}</h1>
         <Form onSubmit={handleSubmit}>
           <label htmlFor="nome">

@@ -40,7 +40,31 @@ function persistRehydrate({payload}){
 
 function registerRequest({payload}){
   const {id, nome, email, password} = payload;
-  //password: password || undefined;
+
+  try{
+    if(id){
+      yield call(axios.put, '/users', {
+        email,
+        nome,
+        password: password || undefined,
+      });
+      toast.success('Conta alterada com sucesso!');
+      yield put(actions.registerSuccess({nome, email, password}));
+    }
+  }
+  catch (e){
+    const errors = get(e, 'response.data.error', []);
+    const status = get(e, 'response.status', 0);
+
+    if(errors.length > 0){
+      errors.mmap(error => toast.error(error));
+    }
+    else {
+      toast.error('Erro desconhecido');
+    }
+
+    yield put(actions.registerFailure());
+  }
 }
 
 export default all([
